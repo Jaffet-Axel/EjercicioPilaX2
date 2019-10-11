@@ -1,0 +1,47 @@
+class PilaMaxima:   #Declaración de nuestra clase
+    #Declaración de las variables que usaremos en el programa
+    __cima = 0
+    __tamPila = 0
+    __pila = []
+
+
+    def __init__(self, tamPila):        #El parámetro de entrada será tamPila (tamaño de la pila), que despues se duplicará ese tamaño
+        self.__tamPila = tamPila -1     #A tamPila se le resta 1, porque en la pila, la posición 0 lo toma como el elemento 1
+        self.__cima = -1                #Cima es nuestro puntero, para idicar en qué posición se encuentra el elemento cima de nuestra pila
+                                        # Cima empezará en -1 por la misma razón, para que inice después en la posición 0 (elemento 1)
+    def pilaLlena(self):
+        if self.__cima == self.__tamPila:    #Si la cima de la pila (osea la posición de cima) es igual al tamaño de la pila...
+            return True                     #...entonces devuelve un True
+        else:
+            return False
+
+    def Insertar(self):         #Método para insertar los datos a la pila
+        while not self.pilaLlena():     #Mientras la pila no esté llena seguiremos agregando números
+            self.__cima += 1            #Cima (la posición cima) irá aumentando 1 para cumplir la condición del método pilaLlena
+            self.__dato = str(input("\n Introduce un dato: "))    #Así se piden los datos que se introducirán en nuestra pila...
+            self.__pila.append(self.__dato)                       #...y cada dato ingresado será agregado a la pila
+            print("la pila es", self.__pila)
+
+    def aumentoPila(self):          #Metodo donde el tamaño de la pila aumentará al doble
+        if self.pilaLlena():                        #Cuando la pila se llene...
+            self.__tamPila = self.__tamPila * 2     #...el tamaño de la pila será multiplicado por dos, por lo tanto será duplicado
+            self.__tamPila = self.__tamPila +1 #Se suma 1 al tamaño de la pila debido a que le hemos restado 1 al inicio del código
+                        #Ejemplo, si definimos el tamPila de 4, al inicio se le resta 1, entonces tenemos que el tamPila ahora es 3, pero como para la pila...
+                        #...se comienza desde la posición 0, se podrán agregar entonces 4 datos a la Pila (0,1,2,3), ahora en el aumentoPila, tenemos que...
+                        #...tamPila(3) = tamPila(3) * 2 = tamPila(6) -----> luego a tamPila(ahora es 6) se le suma 1, ahora queda como tamPila(7)...
+                        # lo que indica que podemos agregar 8 datos a la Pila --> (0,1,2,3,4,5,6,7)
+
+    def TamMaximo(self):        #En este método ya realizamos las operaciones necesarias y en el orden correcto para el funcionamiento del programa
+        print("---El tamaño de la pila actualmente es: ", self.__tamPila +1)
+        self.Insertar()
+        print("--> LA PILA ESTÁ LLENA!!! \n \n")
+        self.aumentoPila()
+        self.TamMaximo()        #Volvemos a llamar a TamMaximo para así poder seguir agregando datos y que de igual manera al llenarse la pila...
+                                #...ésta se siga duplicando
+
+def main():                 #Método main para hacer que corra el programa
+    obj = PilaMaxima(3)     #aquí es donde, al mandar a llamar a nuestra clase, le agregamos en su parámetro el tamaño inicial de nuestra Pila
+    obj.TamMaximo()         #mandamos a llamar a TamMaximo que es donde hemos puesto las acciones con que trabajará nuestro programa
+
+if __name__ == '__main__':
+    main()
